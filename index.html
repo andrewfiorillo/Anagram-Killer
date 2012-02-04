@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+	
+	<title>Scrabble Killer</title>
+	
+	<link rel="stylesheet" href="css/default.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/dict.js"></script>
+	<script type="text/javascript">		
+			
+		function solver() {
+
+			var string = $('#string').val().toUpperCase( ).split("").sort().join("");
+			var data = "", output = "", d = dict.length;
+						
+			for (var i=0; i<d; i++) {
+				var entry = dict[i].split("").sort().join("");
+				if (string == entry) data += "<li><span>" + dict[i] + "</span></li>";
+			}
+			if (data == "") output += "<div style='padding-top:5px;'>No Matches</div>";
+			else 			output += "<ul>"+data.toLowerCase()+"</ul>";
+
+			$('#loading').hide();	
+			$("#output").html(output);
+			$("#string").focus().select();	
+		}
+		
+		$(function() {
+			$('#solver').submit(function() {
+				$('#string').blur();
+				$("#output").html("");
+				$('#loading').show();
+				setTimeout("solver();",0);
+				return false;
+			});		
+		});
+		
+	</script>
+
+</head>
+
+<body>
+
+	<div id="container">
+		<div id="input">
+			<form name="solver" method="GET" action="jstest.html" id="solver">
+				<input type="text" name="string" id="string" placeholder="Search..." />
+				<input name="submit" type="submit" id="submit" value="Submit" />
+				<div style="clear:both;"></div>
+			</form>
+		</div>
+		<img src="images/loading.gif" id="loading" style="display:none;" />
+		<div id="output"></div>
+	</div>
+	
+</body>
+</html>
+
