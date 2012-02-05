@@ -50,6 +50,7 @@
 			var all = [];
 			for (var i=0; i < a.length; i++) fn(i, a, [], all);
 			all.push(a);
+			all.reverse();
 			return all;
 		}
 		
@@ -62,8 +63,6 @@
 				string	= $('#string').val().toUpperCase( ).split(""),
 				strings	= combine(string),
 				slen	= strings.length;
-				
-			strings.reverse();
 
 			for (var i=0; i<slen; i++) {	
 				var key = strings[i].sort().join("");
@@ -110,7 +109,7 @@
 	<div id="container">
 		<div id="input">
 			<form name="solver" method="GET" action="jstest.html" id="solver">
-				<input type="text" name="string" id="string" placeholder="Search..." maxlength="15" />
+				<input type="text" name="string" id="string" placeholder="Search..." maxlength="15" autocomplete="off" />
 				<input name="submit" type="submit" id="submit" value="Submit" />
 				<div style="clear:both;"></div>
 			</form>
