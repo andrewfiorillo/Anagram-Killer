@@ -15,7 +15,24 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/dictionary.js"></script>
 	<script type="text/javascript">		
-			
+		
+		
+		$.fn.input = function(fn) {
+			var $this = this;
+			if (!fn) {
+				return $this.trigger('keydown.input');
+			}
+			return $this.bind({
+				'input.input': function(event) {
+					$this.unbind('keydown.input');
+					fn.call(this, event);
+				},
+				'keydown.input': function(event) {
+					fn.call(this, event);
+				}
+			});
+		};
+		
 		
 		function combine(a) {
 			function fn(n, src, got, all) {
@@ -49,19 +66,27 @@
 				if (dictionary[key]) words = words.concat(dictionary[key]);
 			}
 
-			for (var i=0; i<words.length; i++) data += "<li><span>" + words[i] + "</span></li>";
+			for (var i=0; i<words.length; i++) {
+				if (words[i].length === string.length) data += "<li><span><strong>" + words[i] + "</strong></span></li>";
+				else data += "<li><span>" + words[i] + "</span></li>";
+			}
 			
 			if (data == "")	output += "<div style='padding-top:5px;'>No Matches</div>";
 			else 			output += "<ul>"+data.toLowerCase()+"</ul>";
 			
 			$('#loading').hide();	
 			$("#output").html(output);
-			$("#string").focus().select();
+			//$("#string").focus().select();
 				
 		}
 		
 		
 		$(function() {		
+			$('#string').input(function() {
+				$("#output").html("");
+				$('#loading').show();
+				setTimeout("solver();",0);
+			});
 			$('#solver').submit(function() {
 				$('#string').blur();
 				$("#output").html("");
