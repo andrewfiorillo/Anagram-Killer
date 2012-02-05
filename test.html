@@ -17,6 +17,27 @@
 	<script type="text/javascript" src="js/dictionary.js"></script>
 	<script type="text/javascript">		
 	
+	
+	
+		//function makeDictionary() {
+		//	var t = new Date().getTime();
+		//	dictionary = {}
+		//	words = dict;
+		//	var wl = words.length;
+		//	for (var i=0; i<wl; ++i) {
+		//		var word = words[i].toUpperCase();
+		//		var key = word.split('').sort().join('');
+		//		if (dictionary[key]) {
+		//			dictionary[key].push(word);
+		//		} else {
+		//			dictionary[key] = [word];
+		//		}
+		//	}
+		//	var diff = new Date().getTime()-t;
+		//	console.log('madeDictionary took', diff+'ms');
+		//}
+
+	
 		function solver() {
 
 			var string = $('#string').val().toUpperCase( ).split("").sort().join("");
@@ -59,12 +80,16 @@
 			var strings = combine(string);	
 			strings.reverse();
 
+
 			for (var i = 0; i < strings.length; i++) {
+				
 				var combo = strings[i].sort().join("");
+				
 				for (var n = 0; n < d; n++) {
 				  var entry = dict[n].split("").sort().join("");
 				  if (combo == entry) data += "<li><span>" + dict[n] + "</span></li>";
 				}
+				
 			}
 			
 			if (data == "") output += "<div style='padding-top:5px;'>No Matches</div>";
@@ -78,6 +103,8 @@
 		
 		
 		function solver3() {
+			
+			var t = new Date().getTime();
 			
 			var words = [],
 				data = "",
@@ -102,7 +129,9 @@
 			$('#loading').hide();	
 			$("#output").html(output);
 			$("#string").focus().select();
-						
+			
+			var diff = new Date().getTime()-t;
+			console.log('search took', diff+'ms');
 		}
 		
 		

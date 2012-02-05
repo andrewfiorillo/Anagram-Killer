@@ -1,13 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html>
+<!DOCTYPE html>
+<html manifest="scrabblekiller.manifest">
 
 <head>
-
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 	
 	<title>Scrabble Killer</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- <link rel="apple-touch-icon" href="iphon_tetris_icon.png"/> -->
+	<!-- <link rel="apple-touch-startup-image" href="startup.png" /> -->
 	
 	<link rel="stylesheet" href="css/default.css" type="text/css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -65,8 +69,9 @@
 				var key = strings[i].sort().join("");
 				if (dictionary[key]) words = words.concat(dictionary[key]);
 			}
-
-			for (var i=0; i<words.length; i++) {
+			var wlen = words.length;
+			
+			for (var i=0; i<wlen; i++) {
 				if (words[i].length === string.length) data += "<li><span><strong>" + words[i] + "</strong></span></li>";
 				else data += "<li><span>" + words[i] + "</span></li>";
 			}
@@ -77,7 +82,7 @@
 			$('#loading').hide();	
 			$("#output").html(output);
 			//$("#string").focus().select();
-				
+							
 		}
 		
 		
@@ -105,7 +110,7 @@
 	<div id="container">
 		<div id="input">
 			<form name="solver" method="GET" action="jstest.html" id="solver">
-				<input type="text" name="string" id="string" placeholder="Search..." />
+				<input type="text" name="string" id="string" placeholder="Search..." maxlength="15" />
 				<input name="submit" type="submit" id="submit" value="Submit" />
 				<div style="clear:both;"></div>
 			</form>
