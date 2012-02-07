@@ -9,12 +9,12 @@
 	
 	<title>Scrabble Killer</title>
 	
-	<link rel="stylesheet" href="css/default.css" type="text/css" />
-	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="../css/default.css" type="text/css" />
+	<link rel="stylesheet" href="../css/style.css" type="text/css" />
 	
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/dict.js"></script>
-	<script type="text/javascript" src="js/dictionary.js"></script>
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/dict.js"></script>
+	<script type="text/javascript" src="../js/dictionary.js"></script>
 	<script type="text/javascript">		
 	
 	
@@ -36,6 +36,13 @@
 		//	var diff = new Date().getTime()-t;
 		//	console.log('madeDictionary took', diff+'ms');
 		//}
+		
+		
+		function sortD(a, b) {
+			if (a.length > b.length) return -1;
+			if (a.length < b.length) return 1;
+			return 0;
+		}
 
 	
 		function solver() {
@@ -69,6 +76,19 @@
 			for (var i=0; i < a.length; i++) fn(i, a, [], all);
 			all.push(a);
 			return all;
+		}
+		
+		
+		function combine2(str) {
+			var out = [];
+			for(var i=1; i<Math.pow(2,str.length); i++) {
+				var cur = [];			
+				for(var j=0; j<str.length; j++) {
+					if( (Math.pow(2,j) & i) > 0 ) cur.push(str[j]);
+				}	
+				out.push(cur.join(""));
+			}
+			return out.sort(sortD);
 		}
 		
 		
@@ -131,7 +151,40 @@
 			$("#string").focus().select();
 			
 			var diff = new Date().getTime()-t;
-			console.log('search took', diff+'ms');
+			console.log('solver3 took', diff+'ms');
+		}
+		
+		function solver4() {
+			
+			var t = new Date().getTime();
+		
+			var words = [],
+				data = "",
+				output = "",
+				d = dictionary.length,
+				string = $('#string').val().toUpperCase( ).split(""),
+				strings = combine2(string);
+			
+				
+			for (var i = 0; i < strings.length; i++) {	
+				var key = strings[i].split("").sort().join("");
+				if (dictionary[key]) words = words.concat(dictionary[key]);
+			}
+			for (var i = 0; i < words.length; i++) {
+				if (words[i].length === string.length) data += "<li><span><strong>" + words[i] + "</strong></span></li>";
+				else data += "<li><span>" + words[i] + "</span></li>";
+			}
+			
+			if (data == "")	output += "<div style='padding-top:5px;'>No Matches</div>";
+			else 			output += "<ul>"+data.toLowerCase()+"</ul>";
+			
+			$('#loading').hide();	
+			$("#output").html(output);
+			$("#string").focus().select();
+			
+			var diff = new Date().getTime()-t;
+			console.log('solver4 took', diff+'ms');
+			
 		}
 		
 		
@@ -140,7 +193,7 @@
 				$('#string').blur();
 				$("#output").html("");
 				$('#loading').show();
-				setTimeout("solver3();",0);
+				setTimeout("solver4();",0);
 				return false;
 			});		
 		});
@@ -159,7 +212,7 @@
 				<div style="clear:both;"></div>
 			</form>
 		</div>
-		<img src="images/loading.gif" id="loading" style="display:none;" />
+		<img src="../images/loading.gif" id="loading" style="display:none;" />
 		<div id="output"></div>
 	</div>
 	

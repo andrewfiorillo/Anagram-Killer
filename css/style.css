@@ -1,78 +1,108 @@
 body {
-	/* background: #f8f8f8; */
-	padding: 10px;
+	background: #f6f6f6;
 	font-family: Helvetica, Arial, Sans-serif;
 	font-size: 13px;
 	color: #444;
 	line-height: 19px;
 }
-div#container {
-	width: 300px;
+#container {
 	margin: 0 auto;
 }
-div#input {
+#input {
+	background: #ddd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e6e6e6)) !important;
+	background: -moz-linear-gradient(#f6f6f6, #e6e6e6);
+	border-bottom: 1px solid #bbb;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+	width: 100%;
+	position: fixed;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#input form {
+	position: relative;
+	height: 32px;	
+	padding-top: 11px;
 	padding-bottom: 10px;
 }
-div#output {
-	font-size: 14px;	
-}
-div#output ul {
-	list-style-type: square;
-	list-style-position: inside;
-}
-div#output ul li {
-	color: #aaa;
-	padding-left: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	border-bottom: 1px solid #ccc;
-}
-div#output ul li span {
-	color: #444;
-}
-input[type=text] {
+#input input#string {
 	background: white;
-	border: 1px solid #ccc;
 	font-family: Helvetica Neue, Helvetica, Arial, Sans-serif;
 	font-size: 14px;
 	display: block;
-	float: left;
-	margin-right: 6px;
+	position: absolute;
+	left: 10px;
+	right: 85px;
 	height: 24px;
-	padding: 2px 6px;
-	width: 210px;
+	padding: 2px 10px;
+	border: 1px solid #ccc;
+	border-top: 1px solid #bbb;
+	border-radius: 30px;
+	box-shadow: 0 1px 0 white;
+	-webkit-box-shadow: 0 1px 0 white, 0 1px 2px rgba(0,0,0,0.2) inset;
+	-moz-box-shadow: 0 1px 0 white;
+	-webkit-appearance: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-input[type=text]::-webkit-input-placeholder {
+input#string::-webkit-input-placeholder {
 
 }
-input[type=text]:-moz-placeholder {
+input#string:-moz-placeholder {
    color: #ccc;
 }
-input[type=submit] {
+input#submit {
 	background: #eee;
-	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee)) !important;
-	background: -moz-linear-gradient(top, #fff, #eee);
-	border: 1px solid #ccc;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e6e6e6)) !important;
+	background: -moz-linear-gradient(top, #f6f6f6, #e6e6e6);
+	border: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
 	font-family: Helvetica Neue, Helvetica, Arial, Sans-serif;
 	font-size: 12px;
 	font-weight: bold;
 	color: #555;
 	cursor: pointer;
 	display: block;
-	float: left;
+	float: right;
 	height: 30px;
 	padding: 0 10px;
 	text-align: center;
+	text-shadow: 0 1px 0 white;
 	width: 70px;
+	border-radius: 30px;
+	box-shadow: 0 1px 0 white, 0 1px 0 white inset;
+	margin-right: 10px;
 }
-input[type=submit]:hover {
-	border: 1px solid #aaa;
+input#submit:hover {
+
 }
-input[type=submit]:active {
+input#submit:active {
 	background: #ddd;
-	border: 1px solid #aaa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd)) !important;
+	background: -moz-linear-gradient(top, #eee, #ddd);
+	box-shadow: 0 1px 0 white, 0 1px 3px rgba(0,0,0,0.2) inset;
+}
+#output {
+	font-size: 14px;	
+	padding-top: 53px;
+	text-shadow: 0 1px 0 white;
+}
+#output ul {
+	list-style-type: square;
+	list-style-position: inside;
+	border-bottom: 1px solid white;
+}
+#output ul li {
+	color: #aaa;
+	height: 30px;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid white;
+	line-height: 30px;
+}
+#output ul li span {
+	color: #444;
 }
 img#loading {
 	position: relative;
-	top:5px;
+	top: 70px;
+	left: 15px;
 }

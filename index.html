@@ -20,40 +20,30 @@
 	<script type="text/javascript" src="js/dictionary.js"></script>
 	<script type="text/javascript">		
 		
-		
 		$.fn.input = function(fn) {
 			var $this = this;
-			if (!fn) {
-				return $this.trigger('keydown.input');
-			}
+			if (!fn) return $this.trigger('keydown.input');
 			return $this.bind({
-				'input.input': function(event) {
-					$this.unbind('keydown.input');
-					fn.call(this, event);
-				},
-				'keydown.input': function(event) {
-					fn.call(this, event);
-				}
+				'input.input'	: function(event) { $this.unbind('keydown.input'); fn.call(this, event); },
+				'keydown.input'	: function(event) { fn.call(this, event); }
 			});
 		};
 		
-		
-		function combine(a) {
-			function fn(n, src, got, all) {
-				if (n == 0) {
-					if (got.length > 0) all[all.length] = got;
-		      		return;
-		    	}
-				for (var j = 0; j < src.length; j++) fn( n - 1, src.slice(j + 1), got.concat([src[j]]), all );
-		    	return;
-			}
-			var all = [];
-			for (var i=0; i < a.length; i++) fn(i, a, [], all);
-			all.push(a);
-			all.reverse();
-			return all;
+		function sortD(a, b) {
+			if (a.length > b.length) return -1;
+			if (a.length < b.length) return 1;
+			return 0;
 		}
 		
+		function combine(s) {
+			var out = [], slen = s.length;
+			for(var i=1,; i<Math.pow(2,slen); i++) {		
+				for(var j=0, c=[]; j<slen; j++)
+					if( (Math.pow(2,j) & i) > 0 ) c.push(s[j]);
+				out.push(c.join(""));
+			}
+			return out.sort(sortD);
+		}
 		
 		function solver() {
 			
@@ -75,7 +65,7 @@
 				else data += "<li><span>" + words[i] + "</span></li>";
 			}
 			
-			if (data == "")	output += "<div style='padding-top:5px;'>No Matches</div>";
+			if (data == "")	output += "<div style='padding:15px 20px;'>No Matches</div>";
 			else 			output += "<ul>"+data.toLowerCase()+"</ul>";
 			
 			$('#loading').hide();	
@@ -83,7 +73,6 @@
 			//$("#string").focus().select();
 							
 		}
-		
 		
 		$(function() {		
 			$('#string').input(function() {
@@ -110,7 +99,7 @@
 		<div id="input">
 			<form name="solver" method="GET" action="jstest.html" id="solver">
 				<input type="text" name="string" id="string" placeholder="Search..." maxlength="15" autocomplete="off" />
-				<input name="submit" type="submit" id="submit" value="Submit" />
+				<input name="submit" type="submit" id="submit" value="Search" ontouchstart="" />
 				<div style="clear:both;"></div>
 			</form>
 		</div>
