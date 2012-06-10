@@ -37,10 +37,11 @@
 		
 		function combine(s) {
 			var out = [], slen = s.length;
-			for(var i=1,; i<Math.pow(2,slen); i++) {		
-				for(var j=0, c=[]; j<slen; j++)
+			for(var i=1; i<Math.pow(2,slen); i++) {		
+				for(var j=0, c=[]; j<slen; j++) {
 					if( (Math.pow(2,j) & i) > 0 ) c.push(s[j]);
-				out.push(c.join(""));
+				}
+				out.push(c.sort().join(""));
 			}
 			return out.sort(sortD);
 		}
@@ -55,7 +56,7 @@
 				slen	= strings.length;
 
 			for (var i=0; i<slen; i++) {	
-				var key = strings[i].sort().join("");
+				var key = strings[i];
 				if (dictionary[key]) words = words.concat(dictionary[key]);
 			}
 			var wlen = words.length;
