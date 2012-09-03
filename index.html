@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="scrabblekiller.manifest">
+<html>
 
 <head>
 	
@@ -28,6 +28,14 @@
 				'keydown.input'	: function(event) { fn.call(this, event); }
 			});
 		};
+		
+		function remove_dupes(arr) {
+			var uniques = [];
+			for (var i = 0; i < arr.length; i++) {
+				if (!(uniques.indexOf(arr[i]) > -1)) uniques.push(arr[i])
+			}
+			return uniques;
+		}
 		
 		function sortD(a, b) {
 			if (a.length > b.length) return -1;
@@ -59,6 +67,9 @@
 				var key = strings[i];
 				if (dictionary[key]) words = words.concat(dictionary[key]);
 			}
+			
+			words = remove_dupes(words);
+			
 			var wlen = words.length;
 			
 			for (var i=0; i<wlen; i++) {
